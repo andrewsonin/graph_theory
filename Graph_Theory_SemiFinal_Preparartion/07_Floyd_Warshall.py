@@ -1,21 +1,19 @@
-class task:
+# Алгоритм Флойда-Уоршелла для поиска кратчайшего пути от одной вершины до другой.
+# В основе - динамическое програмирование. Асимптотика O(N^3) Реализация на Python 3.
 
-    task= '''Алгоритм Флойда-Уоршелла для поиска кратчайшего пути от одной вершины до другой.
-    В основе- динамическое програмирование. Асимптотика O(N^3) Реализация на Python 3.'''
+def read_graph_as_wm(vertex_quantity, edge_quantity):
+    weight_matrix = [[float('+inf')] * vertex_quantity for i in range(vertex_quantity)]
+    for i in range(vertex_quantity):
+        weight_matrix[i][i] = 0
+    for edge in range(edge_quantity):
+        link1, link2, weight = [int(x) for x in input().split()]
+        weight_matrix[link1][link2], weight_matrix[link2][link1] = weight, weight
+    return weight_matrix
 
-def read_as_weight_matrix():
-    N, M = tuple(map(int, input()))
-    wm = [[float('+inf') for i in range(N)] for i in range(N)]
-    for i in range(M):
-        a, b, c = tuple(map(int, input().split()))
-        wm[a][b] = c
-    return wm
-def floyd_warshall(graph_as_wm):
-    A = [[[float('inf') for i in range(len(graph_as_wm))] for j in range(len(graph_as_wm))] for k in range(len(graph_as_wm) + 1)]
-    A[0] = graph_as_wm.copy()
-    for k in range(1, len(graph_as_wm) + 1):
-        for i in range(len(graph_as_wm)):
-            for j in range(len(graph_as_wm)):
-                A[k][i][j] = min(A[k-1][i][j], A[k - 1][i][k] + A[k-1][k][j])
-    return A[len(graph_as_wm)]
 
+def floyd_warshall(weight_matrix, vertexes):
+    for k in range(vertexes):
+        for i in range(vertexes):
+            for j in range(vertexes):
+                weight_matrix[i][j] = min(weight_matrix[i][j], weight_matrix[i][k] + weight_matrix[k][j])
+    return weight_matrix
