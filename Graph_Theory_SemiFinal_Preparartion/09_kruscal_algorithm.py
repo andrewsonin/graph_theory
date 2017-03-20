@@ -13,7 +13,7 @@ def kruscal(edges, vertex_quantity):
     for v1, v2, weight in edges:
         to_add = True
         if pieces[v1] == 0 == pieces[v2]:
-            pieces[v1] = {vertex_quantity + i}
+            pieces[v1] = {i}
             pieces[v2] = pieces[v1]
             i += 1
         elif pieces[v1] == 0:
