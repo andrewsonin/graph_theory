@@ -10,7 +10,8 @@ def read_graph_as_lists(vertex_number, edge_number):
     return graph
 
 
-def dijkstra(graph, start, vertex_quantity, used_vertexes=set()):
+def dijkstra(graph, start, vertex_quantity):
+    used_vertexes = set()
     path_length = [float('+inf')] * vertex_quantity
     path_length[start] = 0
     for i in range(vertex_quantity):
