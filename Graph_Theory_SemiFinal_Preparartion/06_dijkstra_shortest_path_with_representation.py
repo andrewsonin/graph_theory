@@ -11,11 +11,11 @@ def read_graph_as_lists(vertex_number, edge_number):
 
 
 def dijkstra(graph, start, vertex_quantity, used_vertexes=set()):
-    path_length = {i: float('+inf') for i in range(vertex_quantity)}
+    path_length = [float('+inf')] * vertex_quantity
     path_length[start] = 0
     for i in range(vertex_quantity):
         min_distance = float('+inf')
-        for vertex in path_length:
+        for vertex in range(vertex_quantity):
             if path_length[vertex] < min_distance and vertex not in used_vertexes:
                 current = vertex
                 min_distance = path_length[vertex]
