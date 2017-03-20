@@ -1,28 +1,29 @@
-class task:
-
-    task= '''Подсчёт компонент связности поиском в ширину. Реализация на Python 3.'''
+# Подсчёт компонент связности поиском в ширину. Реализация на Python 3.
 
 
 def read_graph_as_lists():
-    N, M = tuple(map(int,input().split()))
-    graph = [[] for i in range(N)]
-    for edge in range(M):
+    vertexes, edges = tuple(map(int, input().split()))
+    graph = [[] for i in range(vertexes)]
+    for edge in range(edges):
         a, b = tuple(map(int, input().split()))
         graph[a].append(b)
         graph[b].append(a)
     return graph
-def bfs(graph, start, used = None):
-    if used == None:
+
+
+def bfs(graph, start, used=None):
+    if used is None:
         used = set()
-    Q = []
-    Q.append(start)
+    queue = list()
+    queue.append(start)
     used.add(start)
-    while Q:
-        current = Q.pop()
+    while queue:
+        current = queue.pop()
         for neighbour in graph[current]:
             if neighbour not in used:
                 used.add(neighbour)
-                Q.append(neighbour)
+                queue.append(neighbour)
+
 
 def count_components(graph):
     used = set()
