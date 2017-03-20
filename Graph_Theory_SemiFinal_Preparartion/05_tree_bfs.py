@@ -1,5 +1,6 @@
 # Остовное дерево поиска в ширину. Реализация на Python 3. O(N)
 
+
 def read_graph_as_lists():
     vertexes, edges = tuple(map(int, input().split()))
     graph = [[] for i in range(vertexes)]
