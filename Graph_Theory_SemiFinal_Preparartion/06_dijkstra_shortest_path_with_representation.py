@@ -1,35 +1,31 @@
-class task:
+# Алгоритм Дейкстры с восстановлением кратчайшего пути. Реализация на Python 3. Реализация для связного графа.
+# Иначе просто пробегаем по компоненте связности, которую можно получить при помощи dfs или bfs. O(N^3)
 
-    task= '''Алгоритм Дейкстры с восстановлением кратчайшего пути. Реализация на Python 3. Реализация для связного графа.
-    Иначе просто пробегаем по компоненте связности, которую можно получить при помощи dfs или bfs. O(N^3)'''
 
-def read_graph_as_dict():
-    N, M = tuple(map(int,input().split()))
-    graph = {i:{ } for i in range(N)}
-    for edge in range(M):
-        a, b, c = tuple(map(int, input().split()))
-        graph[a][b] = c
-        graph[b][a] = c
+def read_graph_as_lists(vertex_number, edge_number):
+    graph = [[] for i in range(vertex_number)]
+    for edge in range(edge_number):
+        link1, link2, weight = [int(x) for x in input().split()]
+        graph[link2].append((link1, weight)), graph[link1].append((link2, weight))
     return graph
-def dijkstra(graph, start, finish):
-    distances = {v: float('inf') for v in graph}
-    ways = {v: [] for v in graph}
-    used = set()
-    distances[start] = 0
-    ways[start] = [start]
-    while len(used) != len(graph):
-        min_d = float('inf')
-        for vertex in distances:
-            if distances[vertex] < min_d and vertex not in used:
-                min_d = distances[vertex]
-                current_node = vertex
 
-        for neighbour in graph[current_node]:
-            l = distances[current_node] + graph[current_node][neighbour]
-            if l < distances[neighbour]:
-                distances[neighbour] = l
-                ways[neighbour] = ways[current_node] + [neighbour]
-        used.add(current_node)
-    return distances[finish], ways[finish]
-start, finish = tuple(map(int, input().split()))
-print(dijkstra(read_graph_as_dict(), start, finish))
+
+def dijkstra(graph, start, vertex_quantity, used_vertexes=set()):
+    path_length = {i: float('+inf') for i in range(vertex_quantity)}
+    path_length[start] = 0
+    for i in range(vertex_quantity):
+        min_distance = float('+inf')
+        for vertex in path_length:
+            if path_length[vertex] < min_distance and vertex not in used_vertexes:
+                current = vertex
+                min_distance = path_length[vertex]
+        for neighbour in graph[current]:
+            length = path_length[current] + neighbour[1]
+            if length < path_length[neighbour[0]]:
+                path_length[neighbour[0]] = length
+        used_vertexes.add(current)
+    return path_length
+
+
+vertex_number, edge_quantity, start_vertex, end_vertex = tuple(map(int, input().split()))
+print(dijkstra(read_graph_as_lists(vertex_number, edge_quantity), start_vertex, vertex_number)[end_vertex])
