@@ -26,7 +26,7 @@ def dijkstra(graph, start, vertex_quantity):
             length = path_length[current] + neighbour[1]
             if length < path_length[neighbour[0]]:
                 path_length[neighbour[0]] = length
-                ways[neighbour[0]] = ways[current] + [neighbour]
+                ways[neighbour[0]] = ways[current] + [neighbour[0]]
         used.add(current)
     return path_length, ways
 
