@@ -20,12 +20,11 @@ def kruscal(edges, vertex_quantity):
             pieces[v1] = pieces[v2]
         elif pieces[v2] == 0:
             pieces[v2] = pieces[v1]
+        elif pieces[v1] != pieces[v2]:
+            pieces[v2].update(pieces[v1])
+            pieces[v1].update(pieces[v2])
         else:
-            if pieces[v1] != pieces[v2]:
-                pieces[v2].update(pieces[v1])
-                pieces[v1].update(pieces[v2])
-            else:
-                to_add = False
+            to_add = False
         if to_add:
             tree.append((v1, v2))
             full_weight += weight
