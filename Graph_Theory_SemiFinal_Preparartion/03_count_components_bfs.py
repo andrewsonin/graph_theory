@@ -14,8 +14,7 @@ def read_graph_as_lists():
 def bfs(graph, start, used=None):
     if used is None:
         used = set()
-    queue = list()
-    queue.append(start)
+    queue = [start]
     used.add(start)
     while queue:
         current = queue.pop()
