@@ -12,9 +12,11 @@ def read_graph_as_lists(vertex_number, edge_number):
 
 def dijkstra(graph, start, vertex_quantity):
     used = set()
+    ways = {i: [] for i in range(vertex_quantity)}
     path_length = [float('+inf')] * vertex_quantity
+    ways[start] = [start]
     path_length[start] = 0
-    for i in range(vertex_quantity):
+    for i in range(vertex_quantity - 1):
         min_distance = float('+inf')
         for vertex in range(vertex_quantity):
             if vertex not in used and path_length[vertex] < min_distance:
@@ -24,9 +26,10 @@ def dijkstra(graph, start, vertex_quantity):
             length = path_length[current] + neighbour[1]
             if length < path_length[neighbour[0]]:
                 path_length[neighbour[0]] = length
+                ways[neighbour[0]] = ways[current] + [neighbour]
         used.add(current)
-    return path_length
+    return path_length, ways
 
 
 vertex_number, edge_quantity, start_vertex, end_vertex = tuple(map(int, input().split()))
-print(dijkstra(read_graph_as_lists(vertex_number, edge_quantity), start_vertex, vertex_number)[end_vertex])
+print(dijkstra(read_graph_as_lists(vertex_number, edge_quantity), start_vertex, vertex_number))
