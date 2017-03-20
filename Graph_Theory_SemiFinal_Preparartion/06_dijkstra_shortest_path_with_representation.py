@@ -17,7 +17,7 @@ def dijkstra(graph, start, vertex_quantity):
     for i in range(vertex_quantity):
         min_distance = float('+inf')
         for vertex in range(vertex_quantity):
-            if path_length[vertex] < min_distance and vertex not in used_vertexes:
+            if vertex not in used_vertexes and path_length[vertex] < min_distance:
                 current = vertex
                 min_distance = path_length[vertex]
         for neighbour in graph[current]:
